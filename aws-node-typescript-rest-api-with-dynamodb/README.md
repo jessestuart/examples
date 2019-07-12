@@ -12,7 +12,8 @@ authorAvatar: 'https://avatars0.githubusercontent.com/u/216566?v=4&s=140'
 
 # Introduction
 
-TypeScript (ts) offers type safety which is helpful when working with the AWS SDK, which comes with ts definitions (d.ts)
+TypeScript (ts) offers type safety which is helpful when working with the AWS
+SDK, which comes with ts definitions (d.ts)
 
 # compiling
 
@@ -24,7 +25,9 @@ then
 
 `npm i`
 
-You can then run the compiler by running `tsc` in this directory. It will pull the settings from .tsconfig and extra @types
-from package.json. The output create.js file is what will be uploaded by serverless.
+You can then run the compiler by running `tsc` in this directory. It will pull
+the settings from .tsconfig and extra @types from package.json. The output
+create.js file is what will be uploaded by serverless.
 
-For brevity, I have just demonstrated this to match with the todos/create.js lambda function
+For brevity, I have just demonstrated this to match with the todos/create.js
+lambda function.
