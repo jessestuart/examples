@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk'; // eslint-disable-line import/no-extraneous-dependencies
 
-export const handler = async event => {
+export const handler = async (event) => {
   const { REGION: region, BUCKET: bucket } = process.env;
 
   if (!region || !bucket) {
@@ -9,10 +9,9 @@ export const handler = async event => {
 
   const S3 = new AWS.S3({ signatureVersion: 'v4', region });
 
-  const file =
-    event.headers && event.headers['x-amz-meta-filekey']
-      ? event.headers['x-amz-meta-filekey']
-      : undefined;
+  const file = event.headers && event.headers['x-amz-meta-filekey']
+    ? event.headers['x-amz-meta-filekey']
+    : undefined;
 
   if (!file) {
     return {

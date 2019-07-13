@@ -12,9 +12,7 @@ module.exports = {
 
   srcDir: 'client/',
 
-  modules: [
-    '@nuxt/http',
-  ],
+  modules: ['@nuxt/http'],
 
   http: {
     baseURL: 'https://api.thedogapi.com/v1/',

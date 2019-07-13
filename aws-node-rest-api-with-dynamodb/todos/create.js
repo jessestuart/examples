@@ -13,7 +13,7 @@ module.exports.create = (event, context, callback) => {
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t create the todo item.',
+      body: "Couldn't create the todo item.",
     });
     return;
   }
@@ -30,14 +30,14 @@ module.exports.create = (event, context, callback) => {
   };
 
   // write the todo to the database
-  dynamoDb.put(params, (error) => {
+  dynamoDb.put(params, error => {
     // handle potential errors
     if (error) {
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t create the todo item.',
+        body: "Couldn't create the todo item.",
       });
       return;
     }

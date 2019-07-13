@@ -26,11 +26,12 @@ function handleEvent(event) {
 }
 
 module.exports.hello = (context, req) => {
-  Promise
-    .all(req.body.events.map(handleEvent))
-    .then((result) => { context.res.json(result); })
+  Promise.all(req.body.events.map(handleEvent))
+    .then(result => {
+      context.res.json(result);
+    })
     .then(() => context.done())
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
       context.res.status(500).end();
     });

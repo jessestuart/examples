@@ -25,14 +25,16 @@ module.exports.user = (event, context, callback) => {
     return;
   }
 
-  dbConnectAndExecute(mongoString, () => (
-    UserModel
-      .find({ _id: event.pathParameters.id })
-      .then(user => callback(null, { statusCode: 200, body: JSON.stringify(user) }))
-      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
-  ));
+  dbConnectAndExecute(mongoString, () =>
+    UserModel.find({ _id: event.pathParameters.id })
+      .then(user =>
+        callback(null, { statusCode: 200, body: JSON.stringify(user) }),
+      )
+      .catch(err =>
+        callback(null, createErrorResponse(err.statusCode, err.message)),
+      ),
+  );
 };
-
 
 module.exports.createUser = (event, context, callback) => {
   const data = JSON.parse(event.body);
@@ -50,15 +52,19 @@ module.exports.createUser = (event, context, callback) => {
     return;
   }
 
-  dbConnectAndExecute(mongoString, () => (
+  dbConnectAndExecute(mongoString, () =>
     user
       .save()
-      .then(() => callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({ id: user.id }),
-      }))
-      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
-  ));
+      .then(() =>
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify({ id: user.id }),
+        }),
+      )
+      .catch(err =>
+        callback(null, createErrorResponse(err.statusCode, err.message)),
+      ),
+  );
 };
 
 module.exports.deleteUser = (event, context, callback) => {
@@ -67,12 +73,15 @@ module.exports.deleteUser = (event, context, callback) => {
     return;
   }
 
-  dbConnectAndExecute(mongoString, () => (
-    UserModel
-      .remove({ _id: event.pathParameters.id })
-      .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
-      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
-  ));
+  dbConnectAndExecute(mongoString, () =>
+    UserModel.remove({ _id: event.pathParameters.id })
+      .then(() =>
+        callback(null, { statusCode: 200, body: JSON.stringify('Ok') }),
+      )
+      .catch(err =>
+        callback(null, createErrorResponse(err.statusCode, err.message)),
+      ),
+  );
 };
 
 module.exports.updateUser = (event, context, callback) => {
@@ -98,9 +107,13 @@ module.exports.updateUser = (event, context, callback) => {
     return;
   }
 
-  dbConnectAndExecute(mongoString, () => (
+  dbConnectAndExecute(mongoString, () =>
     UserModel.findByIdAndUpdate(id, user)
-      .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
-      .catch(err => callback(err, createErrorResponse(err.statusCode, err.message)))
-  ));
+      .then(() =>
+        callback(null, { statusCode: 200, body: JSON.stringify('Ok') }),
+      )
+      .catch(err =>
+        callback(err, createErrorResponse(err.statusCode, err.message)),
+      ),
+  );
 };

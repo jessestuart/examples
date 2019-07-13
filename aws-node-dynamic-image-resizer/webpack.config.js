@@ -1,5 +1,5 @@
-const slsw = require('serverless-webpack')
-const webpack = require('webpack')
+const slsw = require('serverless-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: slsw.lib.entries,
@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   optimization: {
-    minimize: false
+    minimize: false,
   },
   module: {
     rules: [
@@ -15,9 +15,9 @@ module.exports = {
         test: /\.js$/,
         loaders: ['babel-loader'],
         include: __dirname,
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
-  externals: ['sharp', 'aws-sdk']
-}
+  externals: ['sharp', 'aws-sdk'],
+};

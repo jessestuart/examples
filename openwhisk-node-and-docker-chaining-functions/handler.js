@@ -6,7 +6,9 @@ const request = require('request');
 
 function http(url, qs) {
   const options = {
-    url, qs, json: true,
+    url,
+    qs,
+    json: true,
   };
 
   return new Promise((resolve, reject) => {
@@ -26,16 +28,22 @@ function http(url, qs) {
 }
 
 function locationFromAddress(params) {
-  if (!params.address) return Promise.reject('Missing mandatory property: address');
+  if (!params.address)
+    return Promise.reject('Missing mandatory property: address');
 
-  return http('https://maps.googleapis.com/maps/api/geocode/json', { address: params.address });
+  return http('https://maps.googleapis.com/maps/api/geocode/json', {
+    address: params.address,
+  });
 }
 
 function sunriseSunset(params) {
   if (!params.lat) return Promise.reject('Missing mandatory property: lat');
   if (!params.lng) return Promise.reject('Missing mandatory property: lng');
 
-  return http('http://api.sunrise-sunset.org/json', { lat: params.lat, lng: params.lng });
+  return http('http://api.sunrise-sunset.org/json', {
+    lat: params.lat,
+    lng: params.lng,
+  });
 }
 
 module.exports.locationFromAddress = locationFromAddress;

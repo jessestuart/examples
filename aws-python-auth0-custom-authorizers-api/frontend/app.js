@@ -4,11 +4,14 @@
 const AUTH0_CLIENT_ID = 'your-auth0-client-id-here';
 const AUTH0_DOMAIN = 'your-auth0-domain-here.auth0.com';
 const AUTH0_CALLBACK_URL = window.location.href; // eslint-disable-line
-const PUBLIC_ENDPOINT = 'https://your-aws-endpoint-here.amazonaws.com/dev/api/public';
-const PRIVATE_ENDPOINT = 'https://your-aws-endpoint-here.us-east-1.amazonaws.com/dev/api/private';
+const PUBLIC_ENDPOINT =
+  'https://your-aws-endpoint-here.amazonaws.com/dev/api/public';
+const PRIVATE_ENDPOINT =
+  'https://your-aws-endpoint-here.us-east-1.amazonaws.com/dev/api/private';
 
 // initialize auth0 lock
-const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, { // eslint-disable-line no-undef
+const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
+  // eslint-disable-line no-undef
 
   auth: {
     params: {
@@ -31,7 +34,7 @@ function updateUI() {
 }
 
 // Handle login
-lock.on('authenticated', (authResult) => {
+lock.on('authenticated', authResult => {
   console.log(authResult);
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
     if (error) {
@@ -74,12 +77,12 @@ document.getElementById('btn-public').addEventListener('click', () => {
     method: 'POST',
   })
     .then(response => response.json())
-    .then((data) => {
+    .then(data => {
       console.log('Message:', data);
       document.getElementById('message').textContent = '';
       document.getElementById('message').textContent = data.message;
     })
-    .catch((e) => {
+    .catch(e => {
       console.log('error', e);
     });
 });
@@ -104,12 +107,12 @@ document.getElementById('btn-private').addEventListener('click', () => {
     },
   })
     .then(response => response.json())
-    .then((data) => {
+    .then(data => {
       console.log('Token:', data);
       document.getElementById('message').textContent = '';
       document.getElementById('message').textContent = data.message;
     })
-    .catch((e) => {
+    .catch(e => {
       console.log('error', e);
     });
 });

@@ -3,14 +3,13 @@
 const ConfigFile = require('config'); // eslint-disable-line
 
 module.exports.incoming = (event, context, callback) => {
-  const requestContextStage =
-    event.requestContext
+  const requestContextStage = event.requestContext
     ? event.requestContext.stage
     : 'test';
   const stripeApiKey =
     requestContextStage === 'test'
-    ? ConfigFile.stripe.test_sk
-    : ConfigFile.stripe.live_sk;
+      ? ConfigFile.stripe.test_sk
+      : ConfigFile.stripe.live_sk;
   const stripe = require('stripe')(stripeApiKey); // eslint-disable-line
 
   try {

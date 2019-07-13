@@ -40,7 +40,7 @@ fs.readFile('frontend/index.template.html', 'utf8', (err, input) => {
     .replace(/%POLICY_BASE64%/g, policyB64)
     .replace(/%SIGNATURE%/g, signature);
 
-  fs.writeFile('frontend/index.html', data, 'utf8', (e) => {
+  fs.writeFile('frontend/index.html', data, 'utf8', e => {
     if (e) {
       console.log(e);
     }

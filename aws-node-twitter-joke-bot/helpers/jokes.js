@@ -7,12 +7,13 @@ const options = {
   },
 };
 
-const getDadJoke = () => new Promise((resolve, reject) => {
-  fetch(process.env.JOKES_API_URL, options)
-            .then(response => response.json())
-            .then(json => resolve(json))
-            .catch(error => reject(error));
-});
+const getDadJoke = () =>
+  new Promise((resolve, reject) => {
+    fetch(process.env.JOKES_API_URL, options)
+      .then(response => response.json())
+      .then(json => resolve(json))
+      .catch(error => reject(error));
+  });
 
 module.exports = {
   getDadJoke,

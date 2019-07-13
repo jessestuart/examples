@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { getChrome } = require('./chrome-script');
 
-module.exports.hello = async (event) => {
+module.exports.hello = async event => {
   const { url } = event.queryStringParameters;
   const chrome = await getChrome();
   const browser = await puppeteer.connect({

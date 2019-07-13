@@ -25,8 +25,7 @@ const event = {
 describe('Messenger', () => { // eslint-disable-line
   it('should send messages', () => { // eslint-disable-line
     const messenger = new Messenger(client);
-    messenger.send(event)
-    .then(() => {
+    messenger.send(event).then(() => {
       expect(createMessageStub.called).to.be.true; // eslint-disable-line
     });
   });

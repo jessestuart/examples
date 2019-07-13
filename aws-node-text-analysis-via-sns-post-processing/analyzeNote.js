@@ -2,7 +2,7 @@
 
 const sentiment = require('sentiment');
 
-module.exports.analyzeNote = (event) => {
+module.exports.analyzeNote = event => {
   const note = event.Records[0].Sns.Message;
   const result = sentiment(note);
   if (result.score > 2) {

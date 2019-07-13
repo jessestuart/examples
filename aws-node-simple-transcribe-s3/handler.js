@@ -7,7 +7,7 @@ const transcribeService = new awsSdk.TranscribeService();
 module.exports.transcribe = (event, context, callback) => {
   const records = event.Records;
 
-  const transcribingPromises = records.map((record) => {
+  const transcribingPromises = records.map(record => {
     const recordUrl = [
       'https://s3.amazonaws.com',
       process.env.S3_AUDIO_BUCKET,
@@ -16,14 +16,16 @@ module.exports.transcribe = (event, context, callback) => {
 
     const TranscriptionJobName = record.s3.object.key;
 
-    return transcribeService.startTranscriptionJob({
-      LanguageCode: process.env.LANGUAGE_CODE,
-      Media: { MediaFileUri: recordUrl },
-      MediaFormat: 'wav',
-      TranscriptionJobName,
-      MediaSampleRateHertz: 8000, // normally 8000 if you are using wav file
-      OutputBucketName: process.env.S3_TRANSCRIPTION_BUCKET,
-    }).promise();
+    return transcribeService
+      .startTranscriptionJob({
+        LanguageCode: process.env.LANGUAGE_CODE,
+        Media: { MediaFileUri: recordUrl },
+        MediaFormat: 'wav',
+        TranscriptionJobName,
+        MediaSampleRateHertz: 8000, // normally 8000 if you are using wav file
+        OutputBucketName: process.env.S3_TRANSCRIPTION_BUCKET,
+      })
+      .promise();
   });
 
   Promise.all(transcribingPromises)

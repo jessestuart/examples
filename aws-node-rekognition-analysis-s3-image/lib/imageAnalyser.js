@@ -5,7 +5,6 @@ const AWS = require('aws-sdk');
 const rek = new AWS.Rekognition();
 
 class ImageAnalyser {
-
   static getImageLabels(s3Config) {
     const params = {
       Image: {
@@ -18,7 +17,9 @@ class ImageAnalyser {
       MinConfidence: 50,
     };
 
-    console.log(`Analyzing file: https://s3.amazonaws.com/${s3Config.bucket}/${s3Config.imageName}`);
+    console.log(
+      `Analyzing file: https://s3.amazonaws.com/${s3Config.bucket}/${s3Config.imageName}`,
+    );
 
     return new Promise((resolve, reject) => {
       rek.detectLabels(params, (err, data) => {

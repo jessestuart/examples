@@ -9,21 +9,15 @@ class ServerlessPlugin {
     this.commands = {
       syncToS3: {
         usage: 'Deploys the `app` directory to your bucket',
-        lifecycleEvents: [
-          'sync',
-        ],
+        lifecycleEvents: ['sync'],
       },
       domainInfo: {
         usage: 'Fetches and prints out the deployed CloudFront domain names',
-        lifecycleEvents: [
-          'domainInfo',
-        ],
+        lifecycleEvents: ['domainInfo'],
       },
       invalidateCloudFrontCache: {
         usage: 'Invalidates CloudFront cache',
-        lifecycleEvents: [
-          'invalidateCache',
-        ],
+        lifecycleEvents: ['invalidateCache'],
       },
     };
 
@@ -53,13 +47,7 @@ class ServerlessPlugin {
   // syncs the `app` directory to the provided bucket
   syncDirectory() {
     const s3Bucket = this.serverless.variables.service.custom.s3Bucket;
-    const args = [
-      's3',
-      'sync',
-      'app/',
-      `s3://${s3Bucket}/`,
-      '--delete',
-    ];
+    const args = ['s3', 'sync', 'app/', `s3://${s3Bucket}/`, '--delete'];
     const { sterr } = this.runAwsCommand(args);
     if (!sterr) {
       this.serverless.cli.log('Successfully synced to the S3 bucket');

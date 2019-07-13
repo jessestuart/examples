@@ -41,17 +41,25 @@ module.exports.auth = (event, context, callback) => {
   };
 
   try {
-    jwt.verify(tokenValue, AUTH0_CLIENT_PUBLIC_KEY, options, (verifyError, decoded) => {
-      if (verifyError) {
-        console.log('verifyError', verifyError);
-        // 401 Unauthorized
-        console.log(`Token invalid. ${verifyError}`);
-        return callback('Unauthorized');
-      }
-      // is custom authorizer function
-      console.log('valid from customAuthorizer', decoded);
-      return callback(null, generatePolicy(decoded.sub, 'Allow', event.methodArn));
-    });
+    jwt.verify(
+      tokenValue,
+      AUTH0_CLIENT_PUBLIC_KEY,
+      options,
+      (verifyError, decoded) => {
+        if (verifyError) {
+          console.log('verifyError', verifyError);
+          // 401 Unauthorized
+          console.log(`Token invalid. ${verifyError}`);
+          return callback('Unauthorized');
+        }
+        // is custom authorizer function
+        console.log('valid from customAuthorizer', decoded);
+        return callback(
+          null,
+          generatePolicy(decoded.sub, 'Allow', event.methodArn),
+        );
+      },
+    );
   } catch (err) {
     console.log('catch error. Invalid token', err);
     return callback('Unauthorized');
@@ -59,29 +67,31 @@ module.exports.auth = (event, context, callback) => {
 };
 
 // Public API
-module.exports.publicEndpoint = (event, context, callback) => callback(null, {
-  statusCode: 200,
-  headers: {
+module.exports.publicEndpoint = (event, context, callback) =>
+  callback(null, {
+    statusCode: 200,
+    headers: {
       /* Required for CORS support to work */
-    'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*',
       /* Required for cookies, authorization headers with HTTPS */
-    'Access-Control-Allow-Credentials': true,
-  },
-  body: JSON.stringify({
-    message: 'Hi ⊂◉‿◉つ from Public API',
-  }),
-});
+      'Access-Control-Allow-Credentials': true,
+    },
+    body: JSON.stringify({
+      message: 'Hi ⊂◉‿◉つ from Public API',
+    }),
+  });
 
 // Private API
-module.exports.privateEndpoint = (event, context, callback) => callback(null, {
-  statusCode: 200,
-  headers: {
+module.exports.privateEndpoint = (event, context, callback) =>
+  callback(null, {
+    statusCode: 200,
+    headers: {
       /* Required for CORS support to work */
-    'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*',
       /* Required for cookies, authorization headers with HTTPS */
-    'Access-Control-Allow-Credentials': true,
-  },
-  body: JSON.stringify({
-    message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
-  }),
-});
+      'Access-Control-Allow-Credentials': true,
+    },
+    body: JSON.stringify({
+      message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
+    }),
+  });

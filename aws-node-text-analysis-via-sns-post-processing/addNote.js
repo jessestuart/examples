@@ -12,7 +12,7 @@ module.exports.addNote = (event, context, callback) => {
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t add the note.',
+      body: "Couldn't add the note.",
     });
     return;
   }
@@ -22,13 +22,14 @@ module.exports.addNote = (event, context, callback) => {
     TopicArn: `arn:aws:sns:us-east-1:${config.awsAccountId}:analyzeNote`,
   };
 
-  sns.publish(params, (error) => {
+  sns.publish(params, error => {
     if (error) {
       console.error(error);
       callback(null, {
         statusCode: 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t add the note due an internal error. Please try again later.',
+        body:
+          "Couldn't add the note due an internal error. Please try again later.",
       });
     }
     // create a resonse

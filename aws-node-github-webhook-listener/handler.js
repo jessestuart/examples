@@ -1,7 +1,10 @@
 const crypto = require('crypto');
 
 function signRequestBody(key, body) {
-  return `sha1=${crypto.createHmac('sha1', key).update(body, 'utf-8').digest('hex')}`;
+  return `sha1=${crypto
+    .createHmac('sha1', key)
+    .update(body, 'utf-8')
+    .digest('hex')}`;
 }
 
 module.exports.githubWebhookListener = (event, context, callback) => {
@@ -14,7 +17,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const calculatedSig = signRequestBody(token, event.body);
 
   if (typeof token !== 'string') {
-    errMsg = 'Must provide a \'GITHUB_WEBHOOK_SECRET\' env variable';
+    errMsg = "Must provide a 'GITHUB_WEBHOOK_SECRET' env variable";
     return callback(null, {
       statusCode: 401,
       headers: { 'Content-Type': 'text/plain' },
@@ -50,7 +53,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   }
 
   if (sig !== calculatedSig) {
-    errMsg = 'X-Hub-Signature incorrect. Github webhook token doesn\'t match';
+    errMsg = "X-Hub-Signature incorrect. Github webhook token doesn't match";
     return callback(null, {
       statusCode: 401,
       headers: { 'Content-Type': 'text/plain' },

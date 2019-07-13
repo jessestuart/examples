@@ -61,7 +61,8 @@ module.exports.authorize = (event, context, cb) => {
             cb(null, generatePolicy(decoded.sub, 'Allow', event.methodArn));
           }
         });
-      });
+      },
+    );
   } else {
     console.log('No authorizationToken found in the header.');
     cb('Unauthorized');

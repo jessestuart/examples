@@ -14,23 +14,24 @@ module.exports.sendText = (event, context, callback) => {
 
   Object.assign(event, { from: process.env.TWILIO_PHONE_NUMBER });
 
-  messenger.send(event)
-  .then((message) => {
-    // text message sent! ✅
-    console.log(`message ${message.body}`);
-    console.log(`date_created: ${message.date_created}`);
-    response.body = JSON.stringify({
-      message: 'Text message successfully sent!',
-      data: message,
-    });
-    callback(null, response);
-  })
-  .catch((error) => {
-    response.statusCode = error.status;
-    response.body = JSON.stringify({
-      message: error.message,
+  messenger
+    .send(event)
+    .then(message => {
+      // text message sent! ✅
+      console.log(`message ${message.body}`);
+      console.log(`date_created: ${message.date_created}`);
+      response.body = JSON.stringify({
+        message: 'Text message successfully sent!',
+        data: message,
+      });
+      callback(null, response);
+    })
+    .catch(error => {
+      response.statusCode = error.status;
+      response.body = JSON.stringify({
+        message: error.message,
       error: error, // eslint-disable-line
+      });
+      callback(null, response);
     });
-    callback(null, response);
-  });
 };

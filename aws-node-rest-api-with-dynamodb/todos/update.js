@@ -14,7 +14,7 @@ module.exports.update = (event, context, callback) => {
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the todo item.',
+      body: "Couldn't update the todo item.",
     });
     return;
   }
@@ -32,7 +32,8 @@ module.exports.update = (event, context, callback) => {
       ':checked': data.checked,
       ':updatedAt': timestamp,
     },
-    UpdateExpression: 'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
+    UpdateExpression:
+      'SET #todo_text = :text, checked = :checked, updatedAt = :updatedAt',
     ReturnValues: 'ALL_NEW',
   };
 
@@ -44,7 +45,7 @@ module.exports.update = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t fetch the todo item.',
+        body: "Couldn't fetch the todo item.",
       });
       return;
     }
